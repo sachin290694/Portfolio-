@@ -1,26 +1,173 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Chef Character Loading Page</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
-        .loading {
-            font-size: 30px;
-            animation: pulse 1s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Big is getting cooked...</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #101013;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    body {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: radial-gradient(ellipse at 75% 20%, #262932 35%, #101013 100%);
+    }
+    .chef-character {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin-bottom: 2.5rem;
+      user-select: none;
+      cursor: pointer;
+      transition: transform 0.18s cubic-bezier(.65,-0.06,0.6,1.4);
+    }
+    .chef-wave {
+      transition: transform 0.3s cubic-bezier(0.32,0,0.67,0);
+    }
+    .chef-character:active, .chef-character.bounce {
+      transform: scale(1.07) rotate(-3deg);
+    }
+    .swirl {
+      animation: swirl-anim 2.8s infinite cubic-bezier(0.88,0.02,0.19,1.01);
+      transform-origin: 55% 80%;
+      opacity: 0.7;
+    }
+    @keyframes swirl-anim {
+      0%, 100% { opacity: 0.6; transform: scale(1) rotate(0deg); }
+      20% { opacity: 0.95; }
+      40% { opacity: 1; transform: scale(1.12) rotate(9deg);}
+      60% { opacity: 0.7;}
+      80% { transform: scale(0.94) rotate(-6deg); }
+    }
+    .bubble {
+      animation: bubbleUp 2.5s infinite ease-in;
+      opacity: 0.5;
+    }
+    .bubble2 { animation-delay: 0.8s; }
+    .bubble3 { animation-delay: 1.4s; }
+    @keyframes bubbleUp {
+      0%   { transform: translateY(0) scale(1); opacity: 0.3;}
+      38%  { transform: translateY(-29px) scale(1.2); opacity: 0.8;}
+      55%  { opacity: 1;}
+      75%  { transform: translateY(-47px) scale(0.8); opacity: 0.4;}
+      100% { transform: translateY(-68px); opacity: 0;}
+    }
+    .chef-hand {
+      transform-origin: 80% 10%;
+      transition: transform 0.22s cubic-bezier(.53,.33,.45,1.49);
+    }
+    .chef-hand.wave {
+      transform: rotate(-25deg);
+    }
+
+    .cook-title {
+      color: #fff;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-align: center;
+      text-shadow: 0 8px 32px #0008, 0 1px 2px #222d;
+      margin-top: 0.5rem;
+      animation: fadein 1.2s cubic-bezier(0.4,0,0.5,1.12);
+    }
+
+    @keyframes fadein {
+      0% { opacity: 0; transform: translateY(36px);}
+      78%{opacity:0.6;}
+      100%{opacity:1; transform: translateY(0);}
+    }
+    @media (max-width: 600px) {
+      .cook-title { font-size: 1.2rem; }
+      .chef-character svg { width: 190px; height: 190px; }
+    }
+  </style>
 </head>
 <body>
-    <div class="loading">Loading Chef Character...</div>
+  <div class="chef-character" tabindex="0" aria-label="Animated chef" onclick="wave()" onkeypress="if(event.key==='Enter'){wave()}">
+    <svg width="250" height="250" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Shadow -->
+      <ellipse cx="125" cy="210" rx="55" ry="15" fill="#23212b" opacity="0.32"/>
+      <!-- Main pot -->
+      <ellipse cx="125" cy="175" rx="50" ry="22" fill="#23212b"/>
+      <ellipse cx="125" cy="162" rx="43" ry="12" fill="#313144"/>
+      <!-- Soup swirl -->
+      <path class="swirl" d="M95 160 Q125 152 149 162 Q123 161 118 167 Q130 165 140 172" stroke="#ffb848" stroke-width="4.5" fill="none"/>
+      <!-- Soup liquid -->
+      <ellipse cx="125" cy="163" rx="38" ry="8" fill="#ffb848" opacity="0.52"/>
+      <!-- Soup bubbles -->
+      <circle class="bubble" cx="110" cy="159" r="2.7" fill="#ffd366"/>
+      <circle class="bubble2" cx="138" cy="160" r="2.1" fill="#ffe6aa"/>
+      <circle class="bubble3" cx="125" cy="157" r="1.6" fill="#ffe6aa"/>
+      <!-- Chef body -->
+      <rect x="107" y="120" width="37" height="36" rx="15" fill="#fffdfa"/>
+      <!-- Left arm (behind pot) -->
+      <g class="chef-hand" id="chefHand">
+        <rect x="85" y="135" width="27" height="8" rx="4" fill="#fffdfa"/>
+        <ellipse cx="85" cy="139" rx="4" ry="4.2" fill="#f0d4ba"/>
+      </g>
+      <!-- Right arm holding spoon -->
+      <rect x="151" y="137" width="24" height="8" rx="4" fill="#fffdfa" />
+      <ellipse cx="176" cy="141" rx="4" ry="4.2" fill="#f0d4ba"/>
+      <rect x="170" y="145" width="5" height="14" rx="2.3" fill="#ae8652"/>
+      <rect x="173" y="157" width="10" height="4" rx="2" fill="#ae8652"/>
+      <!-- Spoon stick -->
+      <rect x="164" y="147" width="10" height="3.1" rx="1.5" fill="#ae8652" transform="rotate(18 170 145)"/>
+      <!-- Chef face -->
+      <ellipse cx="125" cy="115" rx="19" ry="20" fill="#fffdfa" />
+      <ellipse cx="125" cy="122" rx="15.8" ry="13.3" fill="#ffdcb1"/>
+      <!-- Cheeks -->
+      <ellipse cx="114" cy="124" rx="2.7" ry="2.2" fill="#fbb8ba"/>
+      <ellipse cx="136" cy="124" rx="2.7" ry="2.2" fill="#fbb8ba"/>
+      <!-- Eyes -->
+      <ellipse cx="120" cy="121" rx="1.5" ry="2" fill="#433d3a" />
+      <ellipse cx="130" cy="121" rx="1.5" ry="2" fill="#433d3a" />
+      <!-- Moustache -->
+      <path d="M118 127 Q119 131 123 128 Q124 131 132 127" stroke="#4e3520" stroke-width="3.5" fill="none" />
+      <!-- Nose -->
+      <ellipse cx="125" cy="127" rx="2" ry="1.4" fill="#eca467"/>
+      <!-- Chef hat -->
+      <g class="chef-wave" id="chefHat">
+        <ellipse cx="125" cy="95" rx="18" ry="11" fill="#fff" />
+        <ellipse cx="109" cy="91" rx="9" ry="7" fill="#fff"/>
+        <ellipse cx="123" cy="88" rx="10" ry="8" fill="#fae9f3"/>
+        <ellipse cx="142" cy="93" rx="8" ry="8" fill="#fff"/>
+        <rect x="113" y="104.5" width="25" height="10" rx="5" fill="#f9f9f9" stroke="#f2f0f2" stroke-width="1.1"/>
+      </g>
+    </svg>
+  </div>
+  <div class="cook-title">Big is getting cooked...</div>
+  <script>
+    // On click or Enter, chef's left hand waves and character bounces cutely
+    function wave() {
+      const hand = document.getElementById('chefHand');
+      const hat = document.getElementById('chefHat');
+      const chef = document.querySelector('.chef-character');
+      hand.classList.add('wave');
+      chef.classList.add('bounce');
+      hat.style.transform = 'rotate(-15deg) translateY(-4px)';
+      setTimeout(() => {
+        hand.classList.remove('wave');
+        chef.classList.remove('bounce');
+        hat.style.transform = '';
+      }, 520);
+    }
+    // For accessibility, focus character on load:
+    window.onload = () => {
+      document.querySelector('.chef-character').focus();
+    };
+  </script>
 </body>
 </html>
