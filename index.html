@@ -1,21 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>Chef Character Loading Page</title>
     <style>
         body {
-            border: 1px solid black;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
         }
-        /* Add more styles as needed */
+        .loading {
+            font-size: 30px;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
     </style>
 </head>
 <body>
-    <h1>Welcome to My Portfolio</h1>
-    <p>This is my portfolio website where you can find my projects and skills.</p>
+    <div class="loading">Loading Chef Character...</div>
 </body>
 </html>
